@@ -31,6 +31,8 @@ ros2 run nav2_util lifecycle_bringup amcl
 ros2 run nav2_util lifecycle_bringup map_server
 
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+ros2 launch nav2-bringup navigation_launch.py use_sim_time:=true
 ```
  
 ### Constructor de nuevos archivos
