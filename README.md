@@ -1,8 +1,10 @@
-# Instruccines de inicialización:
+# Scripts de inicio:
 ## Robot autonomo en lenguaje Pyhton con uso de ubuntu
 
 ### Iniciar antes de todo
+* entrar en el entorno de trabajo project_ws/
 * source install/setup.bash
+
 
 ### Pasos de inicio:
 * Activar registro de mapa
@@ -36,7 +38,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
  colcon build --symlink-install
 ```
 ### subida de archivos a git (dentro de src y my_bot en el entorno de trabajo)
-
+* desde project_ws/src/my_bot
 ```
 git status
 git add .
