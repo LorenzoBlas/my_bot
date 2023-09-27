@@ -1,27 +1,48 @@
-Instruccines de inicialización:
+# Instruccines de inicialización:
+## Robot autonomo en lenguaje Pyhton con uso de ubuntu
 
-ros2 launch slam_toolbox online_async_launch.py param_file:=.src/my_bot/config/mapper_params_online_async.yaml use_sim-time:=true #map rviz
+### Iniciar antes de todo
+* source install/setup.bash
 
-ros2 launch my_bot launch_sim.launch.py world:=src/my_bot/worlds/pws.world #Launch del mundo
+### Pasos de inicio:
+* Activar registro de mapa
+* Cargar launch del mundo
+* Iniciar rviz2 con el mundo
+* Cargar mapeado prehecho (en este caso de deshabilitara el primer script del registro del mapa) 
+* Cargar odometría de posicion amcl
+* Usar bringup's amcl y map_server
+* Activar control del teclado
 
-rviz2 -d pws.rviz #Config de rviz
+```
+ros2 launch slam_toolbox online_async_launch.py param_file:=.src/my_bot/config/mapper_params_online_async.yaml use_sim-time:=true 
 
-ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=P_mapsave.yaml -p use_sim_time:=true #Cargar mapeado sin escaner
+ros2 launch my_bot launch_sim.launch.py world:=src/my_bot/worlds/pws.world
 
-ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true #navegación y estimacion de posicion amcl
+rviz2 -d pws.rviz
 
-ros2 run nav2_util lifecycle_bringup amcl #activador amcl
-ros2 run nav2_util lifecycle_bringup map_server #activador map_server
+ros2 run nav2_map_server map_server --ros-args -p yaml_filename:=P_mapsave.yaml -p use_sim_time:=true
 
-ros2 run teleop_twist_keyboard teleop_twist_keyboard #control manual del robot (teclado)
+ros2 run nav2_amcl amcl --ros-args -p use_sim_time:=true
 
-Scripts adicionales antes:
-source install/setup.bash #variables de entorno
-colcon build --symlink-install #cargador de archivos
+ros2 run nav2_util lifecycle_bringup amcl
 
-subida de datos a git (dentro de src y my_bot)
+ros2 run nav2_util lifecycle_bringup map_server
+
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+ 
+### Constructor de nuevos archivos
+```
+ colcon build --symlink-install
+```
+### subida de archivos a git (dentro de src y my_bot en el entorno de trabajo)
+
+```
 git status
 git add .
 git status
 git push -m "#comentario de subida"
 git push
+```
+
+
